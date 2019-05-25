@@ -5,10 +5,10 @@
     tools:context="example.javatpoint.com.optionmenu.MainActivity">
 
     <item  android:id="@+id/item1"
-        android:title="Item 1"/>
+        android:title="Audio_Recoder"/>
     <item  android:id="@+id/item2"
-        android:title="Item 2"/>
+        android:title="Video_Recorder"/>
     <item  android:id="@+id/item3"
-        android:title="Item 3" />
+        android:title="ScreenShot" />
 
 </menu>
