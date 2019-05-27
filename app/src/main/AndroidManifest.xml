@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.amansingh.foxfire">
 
+    <uses-sdk tools:overrideLibrary="com.google.firebase.messaging,com.google.firebase.iid" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,17 +21,33 @@
         <activity android:name=".Activity.AudioRecorder" />
         <activity
             android:name=".Activity.SplashActivity"
-            tools:ignore="InnerclassSeparator" >
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".Services.MyFirebaseMessagingService"
+            android:permission="android.permission.INTERNET">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Services.MyFirebaseInstanceIDService"
+            android:exported="true"
+            android:permission="android.permission.INTERNET">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity android:name=".Activity.WelcomePageActivity" />
         <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.SettingsActivity" />
-        <activity android:name=".Activity.ClickCardActivity">
-        </activity>
+        <activity android:name=".Activity.ClickCardActivity" />
     </application>
 
 </manifest>
