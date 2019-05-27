@@ -4,4 +4,8 @@
     <string name="user_password">User Password</string>
     <string name="user_name">User Name</string>
     <string name="desc">desc</string>
+    <string name="user_speed">User Speed</string>
+    <string name="user_id">User ID</string>
+    <string name="user_on_off">User On/Off</string>
+    <string name="user_geofencing">User Geofencing</string>
 </resources>

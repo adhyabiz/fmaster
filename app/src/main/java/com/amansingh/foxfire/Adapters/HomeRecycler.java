@@ -1,87 +1,62 @@
 package com.amansingh.foxfire.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amansingh.foxfire.Activity.ClickCardActivity;
 import com.amansingh.foxfire.Models.HomeListModel;
 import com.amansingh.foxfire.R;
 
 import java.util.ArrayList;
 
-public class HomeRecycler extends RecyclerView.Adapter{
+public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> {
 
-    ArrayList<HomeListModel>homeListModelArrayList=new ArrayList<>();
-    Context context;
+    private ArrayList<HomeListModel> homeListModelArrayList;
+    private Context context;
 
-    public HomeRecycler(ArrayList<HomeListModel> homeListModelArrayList, Context context) {
+    public HomeRecycler(ArrayList<HomeListModel> homeListModelArrayList) {
         this.homeListModelArrayList = homeListModelArrayList;
-        this.context = context;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_custom,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_custom, parent, false);
+        context = parent.getContext();
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HomeListModel homeListModel=homeListModelArrayList.get(position);
-        ((ViewHolder)holder).textView.setText(homeListModel.getText());
-        ((ViewHolder)holder).textView1.setText(homeListModel.getName());
-        ((ViewHolder)holder).textView2.setText(homeListModel.getLocation());
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        String user_id = homeListModelArrayList.get(position).getUser_id();
+        holder.userTV.setText(user_id);
     }
 
     @Override
     public int getItemCount() {
         return homeListModelArrayList.size();
     }
-    public  class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView,textView1,textView2;
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView userTV, locationTV, speedTV, geoTV;
         CardView cardView;
-        Button button;
+        View view;
 
-         ViewHolder( View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-
-            textView=itemView.findViewById(R.id.textView);
-            textView1=itemView.findViewById(R.id.textView1);
-            textView2=itemView.findViewById(R.id.textView2);
-            cardView=itemView.findViewById(R.id.cardView);
-            button=itemView.findViewById(R.id.button);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ClickCardActivity.class);
-                    context.startActivity(intent);
-
-
-                }
-            });
-//            button.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent=new Intent(context,SettingsActivity.class);
-//                    context.startActivity(intent);
-//                }
-//            });
-
-
-
+            view = itemView;
+            userTV = view.findViewById(R.id.user_row);
+            locationTV = view.findViewById(R.id.locationTV);
+            speedTV = view.findViewById(R.id.speedTV);
+            geoTV = view.findViewById(R.id.geoTV);
+            cardView = view.findViewById(R.id.cardView);
         }
     }
 }

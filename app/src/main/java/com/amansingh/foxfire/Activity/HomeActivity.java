@@ -24,7 +24,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private final String TAG = "HomeActivity";
-    HomeRecycler homeRecycler;
     ImageView button;
     ArrayList<HomeListModel> homeListModelArrayList = new ArrayList<>();
     private String master_id;
@@ -43,21 +42,23 @@ public class HomeActivity extends AppCompatActivity {
         users.add("11");
         users.add("10");
 
-        homeListModelArrayList.clear();
-        HomeListModel homeListModel;
-        homeListModel = new HomeListModel("User 1", "name", "location");
-        homeListModelArrayList.add(homeListModel);
-        homeListModel = new HomeListModel("2", "name", "location");
-        homeListModelArrayList.add(homeListModel);
-        homeRecycler = new HomeRecycler(homeListModelArrayList, getApplicationContext());
+        firebaseData();
+
+        HomeRecycler adapter = new HomeRecycler(homeListModelArrayList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setAdapter(homeRecycler);
+        recyclerView.setAdapter(adapter);
         button.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(intent);
         });
-
         firebaseToken();
+    }
+
+    private void firebaseData() {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("Users").addSnapshotListener((queryDocumentSnapshots, e) -> {
+
+        });
     }
 
     private void firebaseToken() {
