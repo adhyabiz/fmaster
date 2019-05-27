@@ -1,15 +1,16 @@
 package com.amansingh.foxfire.Activity;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.amansingh.foxfire.R;
 
-public class WelcomePage_Activity extends AppCompatActivity {
+public class WelcomePageActivity extends AppCompatActivity {
 
     private EditText editText,editText1;
     private Button button;
@@ -26,7 +27,7 @@ public class WelcomePage_Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(WelcomePage_Activity.this,Home_Activity.class);
+                Intent intent = new Intent(WelcomePageActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

@@ -2,16 +2,17 @@ package com.amansingh.foxfire.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.amansingh.foxfire.Activity.Click_Card_Activity;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.amansingh.foxfire.Activity.ClickCardActivity;
 import com.amansingh.foxfire.Models.HomeListModel;
 import com.amansingh.foxfire.R;
 
@@ -65,7 +66,7 @@ public class HomeRecycler extends RecyclerView.Adapter{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context,Click_Card_Activity.class);
+                    Intent intent = new Intent(context, ClickCardActivity.class);
                     context.startActivity(intent);
 
 
@@ -74,7 +75,7 @@ public class HomeRecycler extends RecyclerView.Adapter{
 //            button.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
-//                    Intent intent=new Intent(context,Settings_Activity.class);
+//                    Intent intent=new Intent(context,SettingsActivity.class);
 //                    context.startActivity(intent);
 //                }
 //            });

@@ -1,12 +1,12 @@
 package com.amansingh.foxfire.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.amansingh.foxfire.R;
 
-public class Audio_Recoder extends AppCompatActivity {
+public class AudioRecorder extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,14 +1,15 @@
 package com.amansingh.foxfire.Activity;
 
 import android.content.Intent;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.amansingh.foxfire.R;
 
-public class Splesh_Activity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private final int SPLASH_DISPLAY_LENGTH = 5000;
@@ -23,9 +24,9 @@ public class Splesh_Activity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(Splesh_Activity.this,WelcomePage_Activity.class);
-                Splesh_Activity.this.startActivity(mainIntent);
-                Splesh_Activity.this.finish();
+                Intent mainIntent = new Intent(SplashActivity.this, WelcomePageActivity.class);
+                SplashActivity.this.startActivity(mainIntent);
+                SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

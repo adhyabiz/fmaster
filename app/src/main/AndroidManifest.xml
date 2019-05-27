@@ -11,25 +11,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,InnerclassSeparator">
-        <activity android:name=".Activity.ScreenShot"></activity>
-        <activity android:name=".Activity.Video_Recorder" />
-        <activity android:name=".Activity.Audio_Recoder" />
+        <activity android:name=".Activity.ScreenShot" />
+        <activity android:name=".Activity.VideoRecorder" />
+        <activity android:name=".Activity.AudioRecorder" />
         <activity
-            android:name=".Activity.Splesh_Activity"
+            android:name=".Activity.SplashActivity"
             tools:ignore="InnerclassSeparator" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
-        <activity android:name=".Activity.WelcomePage_Activity" />
-        <activity android:name=".Activity.Home_Activity" />
-        <activity android:name=".Activity.Settings_Activity" />
-        <activity android:name=".Activity.Click_Card_Activity">
+        <activity android:name=".Activity.WelcomePageActivity" />
+        <activity android:name=".Activity.HomeActivity" />
+        <activity android:name=".Activity.SettingsActivity" />
+        <activity android:name=".Activity.ClickCardActivity">
         </activity>
     </application>
 

@@ -15,7 +15,7 @@ import com.amansingh.foxfire.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Click_Card_Activity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class ClickCardActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     @BindView(R.id.toolBar_menu)
     ImageView toolBarMenu;
@@ -40,18 +40,18 @@ public class Click_Card_Activity extends AppCompatActivity implements PopupMenu.
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                Intent intent=new Intent(Click_Card_Activity.this,Audio_Recoder.class);
+                Intent intent = new Intent(ClickCardActivity.this, AudioRecorder.class);
                 startActivity(intent);
-                Toast.makeText(this, "Audio_Recoder", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "AudioRecorder", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item2:
                 String action;
-                Intent intent1=new Intent(Click_Card_Activity.this,Video_Recorder.class);
+                Intent intent1 = new Intent(ClickCardActivity.this, VideoRecorder.class);
                 startActivity(intent1);
-                Toast.makeText(this, "Video_Recorder", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "VideoRecorder", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item3:
-                Intent intent2=new Intent(Click_Card_Activity.this,ScreenShot.class);
+                Intent intent2 = new Intent(ClickCardActivity.this, ScreenShot.class);
                 startActivity(intent2);
                 Toast.makeText(this, "ScreenShot", Toast.LENGTH_SHORT).show();
                 return true;
