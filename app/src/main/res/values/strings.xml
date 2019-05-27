@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">FoxFire</string>
+    <string name="app_name">FoxFire Master</string>
     <string name="login">login</string>
     <string name="user_password">User Password</string>
     <string name="user_name">User Name</string>
     <string name="desc">desc</string>
-
 </resources>
