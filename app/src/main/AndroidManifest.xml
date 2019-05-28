@@ -19,14 +19,6 @@
         <activity android:name=".Activity.ScreenShot" />
         <activity android:name=".Activity.VideoRecorder" />
         <activity android:name=".Activity.AudioRecorder" />
-        <activity
-            android:name=".Activity.SplashActivity"
-            tools:ignore="InnerclassSeparator">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".Services.MyFirebaseMessagingService"
@@ -44,9 +36,13 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Activity.WelcomePageActivity" />
+        <activity android:name=".Activity.WelcomePageActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity.HomeActivity" />
-        <activity android:name=".Activity.SettingsActivity" />
         <activity android:name=".Activity.ClickCardActivity" />
     </application>
 

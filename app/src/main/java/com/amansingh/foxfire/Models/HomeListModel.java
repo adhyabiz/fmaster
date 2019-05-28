@@ -2,13 +2,16 @@ package com.amansingh.foxfire.Models;
 
 import java.util.List;
 
-public class HomeListModel {
+public class HomeListModel extends UserID {
 
     private String user_id;
     private String master_id;
     private String speed;
     private String geoFence;
     private List<String> location;
+
+    public HomeListModel() {
+    }
 
     public HomeListModel(String user_id, String master_id, String speed, String geoFence, List<String> location) {
         this.user_id = user_id;

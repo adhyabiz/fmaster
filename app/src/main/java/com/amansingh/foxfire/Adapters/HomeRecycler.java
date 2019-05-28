@@ -1,6 +1,7 @@
 package com.amansingh.foxfire.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
 
     private ArrayList<HomeListModel> homeListModelArrayList;
     private Context context;
+    private final String TAG = "HomeRecycler";
 
     public HomeRecycler(ArrayList<HomeListModel> homeListModelArrayList) {
         this.homeListModelArrayList = homeListModelArrayList;
@@ -36,6 +38,7 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String user_id = homeListModelArrayList.get(position).getUser_id();
         holder.userTV.setText(user_id);
+        Log.e(TAG, "onBindViewHolder: list size " + homeListModelArrayList.size());
     }
 
     @Override

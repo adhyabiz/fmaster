@@ -1,9 +1,7 @@
 package com.amansingh.foxfire.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,19 +11,20 @@ import com.amansingh.foxfire.Adapters.HomeRecycler;
 import com.amansingh.foxfire.Models.HomeListModel;
 import com.amansingh.foxfire.R;
 import com.amansingh.foxfire.Services.Utils;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private final String TAG = "HomeActivity";
-    ImageView button;
-    ArrayList<HomeListModel> homeListModelArrayList = new ArrayList<>();
+    private ArrayList<HomeListModel> userList;
     private String master_id;
     private List<String> users;
 
@@ -34,31 +33,47 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        button = findViewById(R.id.button);
-
         master_id = "111";
         users = new ArrayList<>();
         users.add("11");
         users.add("10");
 
+        userList = new ArrayList<>();
         firebaseData();
-
-        HomeRecycler adapter = new HomeRecycler(homeListModelArrayList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setAdapter(adapter);
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
-            startActivity(intent);
-        });
         firebaseToken();
     }
 
     private void firebaseData() {
+        Log.e(TAG, "firebaseData: firebaseData entered ");
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        firestore.collection("Users").addSnapshotListener((queryDocumentSnapshots, e) -> {
-
-        });
+        Query query = firestore.collection("Users").whereEqualTo("master_id", "111");
+        try {
+            query.addSnapshotListener(this, (queryDocumentSnapshots, e) -> {
+                if (!Objects.requireNonNull(queryDocumentSnapshots).isEmpty()) {
+                    for (final DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
+                        if (doc.getType() == DocumentChange.Type.ADDED) {
+                            String master_id = doc.getDocument().getId();
+                            final HomeListModel list = doc.getDocument().toObject(HomeListModel.class).withID(master_id);
+                            userList.add(list);
+                            Log.e(TAG, "firebaseData: list size " + userList.size());
+                        } else {
+                            Log.e(TAG, "firebaseData: docType else ");
+                        }
+                    }
+                    Log.e(TAG, "firebaseData: outside for loop ");
+                    Log.e(TAG, "firebaseData: after Query list size " + userList.size());
+                    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                    HomeRecycler adapter = new HomeRecycler(userList);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Log.e(TAG, "firebaseData: doc is empty");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "firebaseData: exception " + e.getMessage());
+        }
     }
 
     private void firebaseToken() {
@@ -70,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                     // Get new Instance ID token
-                    String token = task.getResult().getToken();
+                    String token = Objects.requireNonNull(task.getResult()).getToken();
                     addTokenToFirebase(token);
 
                     // Log and toast
@@ -91,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.e(TAG, "addTokenToFirebase: master data uploaded ");
                     } else {
-                        Log.e(TAG, "addTokenToFirebase: master data error " + task.getException().getMessage());
+                        Log.e(TAG, "addTokenToFirebase: master data error " + Objects.requireNonNull(task.getException()).getMessage());
                     }
                 });
         updateToken(token, users.get(0));
@@ -107,7 +122,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.e(TAG, "addTokenToFirebase: user data uploaded ");
                     } else {
-                        Log.e(TAG, "addTokenToFirebase: user data error " + task.getException().getMessage());
+                        Log.e(TAG, "addTokenToFirebase: user data error " + Objects.requireNonNull(task.getException()).getMessage());
                     }
                 });
     }
