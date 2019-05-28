@@ -1,6 +1,7 @@
 package com.amansingh.foxfire.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amansingh.foxfire.Activity.ClickCardActivity;
 import com.amansingh.foxfire.Models.HomeListModel;
+import com.amansingh.foxfire.Models.Utils;
 import com.amansingh.foxfire.R;
 
 import java.util.ArrayList;
 
 public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> {
 
-    private ArrayList<HomeListModel> homeListModelArrayList;
+    private ArrayList<HomeListModel> userList;
     private Context context;
-    private final String TAG = "HomeRecycler";
 
-    public HomeRecycler(ArrayList<HomeListModel> homeListModelArrayList) {
-        this.homeListModelArrayList = homeListModelArrayList;
+    public HomeRecycler(ArrayList<HomeListModel> userList) {
+        this.userList = userList;
     }
 
     @NonNull
@@ -36,14 +38,27 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String user_id = homeListModelArrayList.get(position).getUser_id();
+        String user_id = userList.get(position).getUser_id();
         holder.userTV.setText(user_id);
-        Log.e(TAG, "onBindViewHolder: list size " + homeListModelArrayList.size());
+        String TAG = "HomeRecycler";
+        Log.e(TAG, "onBindViewHolder: list size " + userList.size());
+
+        //on card click open the user
+        Bundle b = new Bundle();
+        b.putString("user_id", userList.get(position).getUser_id());
+        b.putString("master_id", userList.get(position).getMaster_id());
+        holder.cardView.setOnClickListener
+                (v -> Utils.setIntentExtra(
+                        context,
+                        ClickCardActivity.class,
+                        "Data",
+                        b
+                ));
     }
 
     @Override
     public int getItemCount() {
-        return homeListModelArrayList.size();
+        return userList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

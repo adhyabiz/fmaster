@@ -41,7 +41,7 @@ public class HomeListModel extends UserID {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
@@ -49,7 +49,7 @@ public class HomeListModel extends UserID {
         return master_id;
     }
 
-    public void setMaster_id(String master_id) {
+    void setMaster_id(String master_id) {
         this.master_id = master_id;
     }
 
@@ -57,7 +57,7 @@ public class HomeListModel extends UserID {
         return location;
     }
 
-    public void setLocation(List<String> location) {
+    void setLocation(List<String> location) {
         this.location = location;
     }
 }
