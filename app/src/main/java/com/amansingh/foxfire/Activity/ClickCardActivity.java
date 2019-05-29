@@ -48,6 +48,12 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
 
         userTV.setText("User: " + user_id);
         masterTV.setText("Master: " + master_id);
+
+        getFirebaseData();
+    }
+
+    private void getFirebaseData() {
+
     }
 
     public void Showpopup(View view) {

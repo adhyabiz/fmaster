@@ -1,24 +1,40 @@
 package com.amansingh.foxfire.Models;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class HomeListModel extends UserID {
 
     private String user_id;
     private String master_id;
     private String speed;
-    private String geoFence;
-    private List<String> location;
+    private String geoFencing;
+    private HashMap<String, Double> location;
 
     public HomeListModel() {
     }
 
-    public HomeListModel(String user_id, String master_id, String speed, String geoFence, List<String> location) {
+    public HomeListModel(String user_id, String master_id, String speed, String geoFencing, HashMap<String, Double> location) {
         this.user_id = user_id;
         this.master_id = master_id;
         this.speed = speed;
-        this.geoFence = geoFence;
+        this.geoFencing = geoFencing;
         this.location = location;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getMaster_id() {
+        return master_id;
+    }
+
+    public void setMaster_id(String master_id) {
+        this.master_id = master_id;
     }
 
     public String getSpeed() {
@@ -29,35 +45,19 @@ public class HomeListModel extends UserID {
         this.speed = speed;
     }
 
-    public String getGeoFence() {
-        return geoFence;
-    }
-
-    public void setGeoFence(String geoFence) {
-        this.geoFence = geoFence;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getMaster_id() {
-        return master_id;
-    }
-
-    void setMaster_id(String master_id) {
-        this.master_id = master_id;
-    }
-
-    public List<String> getLocation() {
+    public HashMap<String, Double> getLocation() {
         return location;
     }
 
-    void setLocation(List<String> location) {
+    public void setLocation(HashMap<String, Double> location) {
         this.location = location;
+    }
+
+    public String getGeoFencing() {
+        return geoFencing;
+    }
+
+    public void setGeoFencing(String geoFencing) {
+        this.geoFencing = geoFencing;
     }
 }

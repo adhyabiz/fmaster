@@ -1,6 +1,8 @@
 package com.amansingh.foxfire.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,17 +38,28 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String user_id = userList.get(position).getUser_id();
-        holder.userTV.setText(user_id);
         String TAG = "HomeRecycler";
+        Bundle b = new Bundle();
+        try {
+            String user_id = userList.get(position).getUser_id();
+            String speed = userList.get(position).getSpeed();
+            String geo = userList.get(position).getGeoFencing();
+            b.putString("user_id", userList.get(position).getUser_id());
+            b.putString("master_id", userList.get(position).getMaster_id());
+            Log.e(TAG, "onBindViewHolder: " + speed + " " + geo);
+            if (user_id != null) holder.userTV.setText(user_id);
+            if (speed != null) holder.speedTV.setText(speed);
+            if (geo != null) holder.geoTV.setText(geo + " fencing");
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+            Log.e(TAG, "onBindViewHolder: exception " + e);
+        }
         Log.e(TAG, "onBindViewHolder: list size " + userList.size());
 
         //on card click open the user
-        Bundle b = new Bundle();
-        b.putString("user_id", userList.get(position).getUser_id());
-        b.putString("master_id", userList.get(position).getMaster_id());
         holder.cardView.setOnClickListener
                 (v -> Utils.setIntentExtra(
                         context,
