@@ -9,25 +9,35 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-exports.sendNotification = functions.firestore.document('Users/11/Geo/{doc_id}')
-.onCreate(async context => {
-    console.log("Started");
+exports.sendNotification = functions.firestore.document("Users/{user_id}/Notification/{noti_id}")
+.onCreate((change, context) => {
+    console.log('Started new 2');
+
+    const user_id = context.params.user_id;
+    const noti_id = context.params.noti_id;
+
+    console.log('user id ',user_id);
+    console.log('noti id ',noti_id)
 
     var payload = {
         data:{
-            title: 'User is outside',
-            body: 'User is outside GeoFenced Area',
+            title: 'User ${user_id} is outside',
+            body: 'User ${user_id} is outside GeoFenced Area',
             badge : '1',
             sound : 'default'
         }
     };
 
-
+    console.log('payload ',payload);
 
     return admin.firestore().collection('Master').doc('111')
     .get().then(doc => {
             console.log('doc ',doc.data().token);
-            //const token = Object.keys(allToken.val());
-            return admin.messaging().sendToDevice(doc.data().token,payload);
-        });
+            return admin.messaging().sendToDevice(doc.data().token,payload).then(function(response) {
+                return console.log('Successfully sent message:', response.error);
+              })
+              .catch(function(error) {
+                return console.log('Error sending message:', error);
+              });
+        }); 
 })

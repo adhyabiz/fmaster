@@ -22,7 +22,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/user_id"
         android:textColor="@color/colorAccent"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
@@ -38,7 +38,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/location"
         android:textColor="@color/colorAccent"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userTV" />
@@ -54,7 +54,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/user_speed"
         android:textColor="@color/colorAccent"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationTV" />
@@ -70,10 +70,26 @@
         android:layout_marginRight="8dp"
         android:text="@string/master_id"
         android:textColor="@color/colorAccent"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/speedTV" />
+
+    <TextView
+        android:id="@+id/engineTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/engine_on_off"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/masterTV" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

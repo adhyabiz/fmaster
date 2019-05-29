@@ -36,6 +36,8 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
     TextView speedTV;
     @BindView(R.id.masterTV)
     TextView masterTV;
+    @BindView(R.id.engineTV)
+    TextView engineTV;
 
     private String user_id, master_id;
     private final String TAG = "ClickCard";
@@ -67,6 +69,7 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
                 .addSnapshotListener((documentSnapshot, e) -> {
                     if (documentSnapshot.exists()) {
                         String speed = documentSnapshot.getString("speed");
+                        String engine = documentSnapshot.getString("start");
                         HashMap<String, Object> map;
                         map = (HashMap<String, Object>) documentSnapshot.get("location");
                         Log.e(TAG, "getFirebaseData: map " + Objects.requireNonNull(map).toString());
@@ -76,6 +79,7 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
                         mTitle = "Device";
                         speedTV.setText("User Speed: " + speed);
                         locationTV.setText("Location: Click to view");
+                        engineTV.setText("Engine " + engine);
                     }
                 });
     }
@@ -114,7 +118,7 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
     @OnClick(R.id.locationTV)
     public void onViewClicked() {
         String url = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + mTitle + ")";
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
 }
