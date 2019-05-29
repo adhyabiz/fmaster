@@ -2,6 +2,7 @@ package com.amansingh.foxfire.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,9 +15,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amansingh.foxfire.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ClickCardActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -32,6 +38,8 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
     TextView masterTV;
 
     private String user_id, master_id;
+    private final String TAG = "ClickCard";
+    private String lat, lng, mTitle;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -52,8 +60,24 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
         getFirebaseData();
     }
 
+    @SuppressLint("SetTextI18n")
     private void getFirebaseData() {
-
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("Users").document(user_id)
+                .addSnapshotListener((documentSnapshot, e) -> {
+                    if (documentSnapshot.exists()) {
+                        String speed = documentSnapshot.getString("speed");
+                        HashMap<String, Object> map;
+                        map = (HashMap<String, Object>) documentSnapshot.get("location");
+                        Log.e(TAG, "getFirebaseData: map " + Objects.requireNonNull(map).toString());
+                        Log.e(TAG, "getFirebaseData: speed " + speed);
+                        lat = map.get("lat").toString();
+                        lng = map.get("long").toString();
+                        mTitle = "Device";
+                        speedTV.setText("User Speed: " + speed);
+                        locationTV.setText("Location: Click to view");
+                    }
+                });
     }
 
     public void Showpopup(View view) {
@@ -85,5 +109,12 @@ public class ClickCardActivity extends AppCompatActivity implements PopupMenu.On
             default:
                 return false;
         }
+    }
+
+    @OnClick(R.id.locationTV)
+    public void onViewClicked() {
+        String url = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + mTitle + ")";
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 }
