@@ -9,16 +9,18 @@ public class HomeListModel extends UserID {
     private String speed;
     private String geoFencing;
     private HashMap<String, Double> location;
+    private String start;
 
     public HomeListModel() {
     }
 
-    public HomeListModel(String user_id, String master_id, String speed, String geoFencing, HashMap<String, Double> location) {
+    public HomeListModel(String user_id, String master_id, String speed, String geoFencing, HashMap<String, Double> location, String start) {
         this.user_id = user_id;
         this.master_id = master_id;
         this.speed = speed;
         this.geoFencing = geoFencing;
         this.location = location;
+        this.start = start;
     }
 
     public String getUser_id() {
@@ -59,5 +61,13 @@ public class HomeListModel extends UserID {
 
     public void setGeoFencing(String geoFencing) {
         this.geoFencing = geoFencing;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
     }
 }

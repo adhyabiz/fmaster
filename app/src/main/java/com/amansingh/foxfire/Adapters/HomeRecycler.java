@@ -47,12 +47,14 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
             String user_id = userList.get(position).getUser_id();
             String speed = userList.get(position).getSpeed();
             String geo = userList.get(position).getGeoFencing();
+            String start = userList.get(position).getStart();
             b.putString("user_id", userList.get(position).getUser_id());
             b.putString("master_id", userList.get(position).getMaster_id());
-            Log.e(TAG, "onBindViewHolder: " + speed + " " + geo);
+            Log.e(TAG, "onBindViewHolder: " + speed + " " + geo + " " + start);
             if (user_id != null) holder.userTV.setText(user_id);
             if (speed != null) holder.speedTV.setText(speed);
-            if (geo != null) holder.geoTV.setText(geo + " fencing");
+            if (geo != null) holder.geoTV.setText(geo.toUpperCase() + " Fencing");
+            if (start != null) holder.OnOffTV.setText("Engine " + start);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
             Log.e(TAG, "onBindViewHolder: exception " + e);
@@ -76,7 +78,7 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView userTV, locationTV, speedTV, geoTV;
+        TextView userTV, locationTV, speedTV, geoTV, OnOffTV;
         CardView cardView;
         View view;
 
@@ -87,6 +89,7 @@ public class HomeRecycler extends RecyclerView.Adapter<HomeRecycler.ViewHolder> 
             locationTV = view.findViewById(R.id.locationTV);
             speedTV = view.findViewById(R.id.speedTV);
             geoTV = view.findViewById(R.id.geoTV);
+            OnOffTV = view.findViewById(R.id.on_off_TV);
             cardView = view.findViewById(R.id.cardView);
         }
     }
