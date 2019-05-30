@@ -52,7 +52,6 @@ public class HomeActivity extends AppCompatActivity {
         String[] arrSplit = Objects.requireNonNull(user_id).split(",");
         Collections.addAll(users, arrSplit);
         Log.e(TAG, "onCreate: user id " + users);
-        master_id = "111";
 
         userList = new ArrayList<>();
         firebaseData();
@@ -62,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
     private void firebaseData() {
         Log.e(TAG, "firebaseData: firebaseData entered ");
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        Query query = firestore.collection("Users").whereEqualTo("master_id", "111");
+        Query query = firestore.collection("Users").whereEqualTo("master_id", master_id);
         try {
             query.addSnapshotListener(this, (queryDocumentSnapshots, e) -> {
                 if (!Objects.requireNonNull(queryDocumentSnapshots).isEmpty()) {
