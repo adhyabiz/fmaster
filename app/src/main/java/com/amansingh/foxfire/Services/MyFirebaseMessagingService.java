@@ -1,61 +1,53 @@
 package com.amansingh.foxfire.Services;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import com.amansingh.foxfire.Activity.HomeActivity;
 import com.amansingh.foxfire.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.e(TAG, "onMessageReceived: msg " + remoteMessage);
-        Log.e(TAG, "onMessageReceived: msg from " + remoteMessage.getFrom());
-        Log.e(TAG, "onMessageReceived: msg data " + remoteMessage.getData());
-        Map<String, String> dataMap = remoteMessage.getData();
-        String title = dataMap.get("title");
-        String msg = dataMap.get("body");
-        Log.e(TAG, "onMessageReceived: title and msg " + title + " " + msg);
-        showNotification(msg, title);
+        Map<String, String> data = remoteMessage.getData();
+        Log.e("MyFirebaseMessaging", "Data " + data.toString());
+        showNotification(Objects.requireNonNull(remoteMessage.getNotification()), remoteMessage);
+
     }
 
-    private void showNotification(String body, String title) {
-        Intent intent = new Intent(this, HomeActivity.class);
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void showNotification(RemoteMessage.Notification notification, RemoteMessage remoteMessage) {
+        String action = notification.getClickAction();
+        Map<String, String> data = remoteMessage.getData();
+
+        Intent intent = new Intent(action);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivities(this, 0, new Intent[]{intent}, PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
-        notificationBuilder
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setSound(defaultSoundUri);
-
-        Intent resultIntent = new Intent(this, HomeActivity.class);
-        TaskStackBuilder stackBuilder;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            stackBuilder = TaskStackBuilder.create(this);
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-            notificationBuilder.setContentIntent(resultPendingIntent);
-        }
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notificationBuilder.build());
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(notification.getTitle())
+                .setContentText(notification.getBody())
+                .setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Objects.requireNonNull(notificationManager).notify(0, builder.build());
     }
 }
