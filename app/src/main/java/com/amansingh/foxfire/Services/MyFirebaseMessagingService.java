@@ -18,22 +18,20 @@ import java.util.Map;
 import java.util.Objects;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "MyFirebaseMsgService";
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         Map<String, String> data = remoteMessage.getData();
         Log.e("MyFirebaseMessaging", "Data " + data.toString());
+        Log.e("MyFirebaseMessaging", "Notification " + Objects.requireNonNull(remoteMessage.getNotification()).getBody());
         showNotification(Objects.requireNonNull(remoteMessage.getNotification()), remoteMessage);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void showNotification(RemoteMessage.Notification notification, RemoteMessage remoteMessage) {
         String action = notification.getClickAction();
-        Map<String, String> data = remoteMessage.getData();
+        remoteMessage.getData();
 
         Intent intent = new Intent(action);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

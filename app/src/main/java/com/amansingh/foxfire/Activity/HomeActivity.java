@@ -1,5 +1,6 @@
 package com.amansingh.foxfire.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -33,10 +35,16 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_);
 
-        master_id = "111";
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPrefMaster", MODE_PRIVATE);
+        String user_id = pref.getString("user", "null");  // getting user_id
+        master_id = pref.getString("master", "111");  // getting master_id
+
         users = new ArrayList<>();
-        users.add("11");
-        users.add("10");
+
+        String[] arrSplit = Objects.requireNonNull(user_id).split(",");
+        Collections.addAll(users, arrSplit);
+        Log.e(TAG, "onCreate: user id " + users);
+        master_id = "111";
 
         userList = new ArrayList<>();
         firebaseData();

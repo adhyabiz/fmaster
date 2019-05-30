@@ -7,7 +7,7 @@
     tools:context=".Activity.SettingsActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text"
+        android:id="@+id/userNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -28,8 +28,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        android:id="@+id/text2"
+        android:id="@+id/userPassLayout"
+        app:layout_constraintTop_toBottomOf="@+id/userNameLayout"
         android:layout_marginTop="30dp">
 
         <EditText
@@ -48,8 +48,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/text2"
+        android:id="@+id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/userPassLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
