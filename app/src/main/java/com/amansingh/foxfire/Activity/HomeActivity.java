@@ -3,6 +3,7 @@ package com.amansingh.foxfire.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amansingh.foxfire.Adapters.HomeRecycler;
 import com.amansingh.foxfire.Models.HomeListModel;
+import com.amansingh.foxfire.Models.Utils;
 import com.amansingh.foxfire.R;
-import com.amansingh.foxfire.Services.Utils;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -23,9 +24,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class HomeActivity extends AppCompatActivity {
 
     private final String TAG = "HomeActivity";
+    @BindView(R.id.logOutBtn)
+    Button logOutBtn;
     private ArrayList<HomeListModel> userList;
     private String master_id;
     private List<String> users;
@@ -34,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_);
+        ButterKnife.bind(this);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPrefMaster", MODE_PRIVATE);
         String user_id = pref.getString("user", "null");  // getting user_id
@@ -115,6 +123,7 @@ public class HomeActivity extends AppCompatActivity {
                         Log.e(TAG, "addTokenToFirebase: master data uploaded ");
                     } else {
                         Log.e(TAG, "addTokenToFirebase: master data error " + Objects.requireNonNull(task.getException()).getMessage());
+                        //github.com/iRahulGaur
                     }
                 });
         updateToken(token, users.get(0));
@@ -133,5 +142,19 @@ public class HomeActivity extends AppCompatActivity {
                         Log.e(TAG, "addTokenToFirebase: user data error " + Objects.requireNonNull(task.getException()).getMessage());
                     }
                 });
+    }
+
+    @OnClick(R.id.logOutBtn)
+    public void onViewClicked() {
+        logOut();
+    }
+
+    private void logOut() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPrefMaster", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.apply();
+        Log.e("SettingsActivity", "logOut: ");
+        Utils.setIntentNoBackLog(HomeActivity.this, WelcomePageActivity.class);
     }
 }

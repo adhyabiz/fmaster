@@ -12,4 +12,5 @@
     <string name="location">Location:</string>
     <string name="master_id">Master Id:</string>
     <string name="engine_on_off">Engine On/Off</string>
+    <string name="log_out">Log out</string>
 </resources>

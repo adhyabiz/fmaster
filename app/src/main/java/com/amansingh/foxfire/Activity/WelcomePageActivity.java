@@ -53,6 +53,7 @@ public class WelcomePageActivity extends AppCompatActivity {
             Log.e(TAG, "checkLogin: please Wait!!");
             userPassLayout.setEnabled(false);
             userNameLayout.setEnabled(false);
+            //github.com/iRahulGaur
             Utils.setIntent(WelcomePageActivity.this, HomeActivity.class);
         } else {
             userPassLayout.setEnabled(true);

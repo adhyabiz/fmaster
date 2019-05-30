@@ -9,6 +9,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 public class Utils<Data> {
+
+    public static String TOKEN;
+
+    public static void setIntentFinish(@NonNull Context context, Class destination) {
+        Intent intent = new Intent(context, destination);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
+
     @NonNull
     public static Intent setIntent(@NonNull Context context, Class destination) {
 
